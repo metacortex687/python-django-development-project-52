@@ -1,36 +1,38 @@
 {# Load the tag library #}
 {% load django_bootstrap5 %}
 
+{% load i18n %}
+
 
 
 <!DOCTYPE html>
 <html lang="ru-ru">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Менеджер задач Hexlet</title>
+    <title>{% translate "Менеджер задач Hexlet" %}</title>
     {% bootstrap_css %}
     {% bootstrap_javascript %}
   </head>
   <body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-light bg-light ms-3">
-      <a class="navbar-brand" href="/">Менеджер задач</a>
+      <a class="navbar-brand" href="/">{% translate "Менеджер задач" %}</a>
       <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/users/">Пользователи</a>
+            <a class="nav-link" href="/users/">{% translate "Пользователи" %}</a>
           </li>
           
         </ul>
         <ul class="navbar-nav">
           
             <li class="nav-item">
-              <a class="nav-link" href="/login/">Вход</a>
+              <a class="nav-link" href="/login/">{% translate "Вход" %}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/users/create/">Регистрация</a>
+              <a class="nav-link" href="/users/create/">{% translate "Регистрация" %}</a>
             </li>
           
         </ul>
@@ -48,10 +50,10 @@
 <h1 class="my-4"></h1>
 <div class="card">
   <div class="card-body p-5 bg-light">
-    <div class="display-4">Здесь мой проект!</div>
-    <p class="lead">Менеджер задач</p>
+    <div class="display-4">{% translate "Здесь мой проект!" %}</div>
+    <p class="lead">{% translate "Менеджер задач" %}</p>
     <hr>
-    <a class="btn btn-primary btn-lg" href="https://ru.hexlet.io">Узнать больше о курсе</a>
+    <a class="btn btn-primary btn-lg" href="https://ru.hexlet.io">{% translate "Узнать больше о курсе" %}</a>
   </div>
 </div>
 
