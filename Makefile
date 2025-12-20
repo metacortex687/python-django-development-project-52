@@ -12,3 +12,6 @@ build:
 	
 render-start:
 	gunicorn task_manager.wsgi
+
+create-superuser-from-env:
+	uv run python manage.py create_superuser_from_env
