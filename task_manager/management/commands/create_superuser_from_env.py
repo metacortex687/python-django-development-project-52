@@ -9,8 +9,14 @@ load_dotenv()
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        user_name = os.getenv('SUPERUSER').split(':')[0]
-        password = os.getenv('SUPERUSER').split(':')[1]
+        user_password = os.getenv('SUPERUSER')
+
+        if not user_password:
+            return
+
+        user_password = user_password.split(':')
+        user_name = user_password[0]
+        password = user_password[1]
         
         User = get_user_model()
         if User.objects.filter(username=user_name).exists():
@@ -18,5 +24,6 @@ class Command(BaseCommand):
             return
         
         User.objects.create_superuser(user_name, password=password)
+        print(f'Создан  {user_name}')
 
        
