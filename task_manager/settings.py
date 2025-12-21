@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_bootstrap5',
-    'users'
+    'users',
+    'statuses',
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,4 @@ STORAGES = {
 
 LOGIN_REDIRECT_URL = "index"
 LOGOUT_REDIRECT_URL = "index"
+LOGIN_URL = "login"

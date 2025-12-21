@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container wrapper flex-grow-1">    
+
+
+      <h1 class="my-4">
+      Статусы
+      </h1>
+
+      <a class="btn btn-primary mb-3" href="{% url "statuses_create" %}">Создать статус</a>
+      
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Имя</th>
+      <th>Дата создания</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    {% for obj in object_list  %}
+        <tr>
+        <td>{{obj.id}}</td>
+        <td>{{obj.name}}</td>
+        <td>{{obj.created_at}}</td>
+        <td>
+          <a href="{% url "statuses_update" obj.id %}">Изменить</a>
+          <br>
+          <a href="{% url "statuses_delete" obj.id %}">Удалить</a>
+        </td>
+      </tr> 
+    {% endfor %}
+  </tbody>
+</table>
+
+</div>
+{% endblock content %}
