@@ -27,13 +27,26 @@
           
         </ul>
         <ul class="navbar-nav">
-          
+
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <form method="post" action="{% url "logout" %}" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="nav-link btn btn-link p-0">
+                  {% translate "Выход" %}
+                </button>
+              </form>
+            </li>
+
+            {% else %}
             <li class="nav-item">
               <a class="nav-link" href="{% url "login" %}">{% translate "Вход" %}</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/users/create/">{% translate "Регистрация" %}</a>
-            </li>
+            </li>            
+            {% endif %}
+
           
         </ul>
       </div>
