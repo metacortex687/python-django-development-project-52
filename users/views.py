@@ -3,4 +3,4 @@ from django.views.generic.list import ListView
 
 class UserListView(ListView):
     model = User
-    template_name = 'users.html'
+    template_name = 'users.html'    
