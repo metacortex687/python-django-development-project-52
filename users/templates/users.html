@@ -21,14 +21,14 @@
   </thead>
   <tbody>
     
-    {% for user in object_list  %}
+    {% for obj_user in object_list  %}
         <tr>
-        <td>{{user.id}}</td>
-        <td>{{user.username}}</td>
-        <td>{{user.get_full_name}}</td>
-        <td>{{user.date_joined}}</td>
+        <td>{{obj_user.id}}</td>
+        <td>{{obj_user.username}}</td>
+        <td>{{obj_user.get_full_name}}</td>
+        <td>{{obj_user.date_joined}}</td>
         <td>
-          <a href="/users/1/update/">Изменить</a>
+          <a href="{% url "user_update" obj_user.id %}">Изменить</a>
           <br>
           <a href="/users/1/delete/">Удалить</a>
         </td>
