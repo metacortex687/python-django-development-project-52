@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.list import ListView
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 class UserListView(ListView):
@@ -20,3 +20,9 @@ class UpdateUserView(UpdateView):
     template_name = 'user_update.html'
     success_url = reverse_lazy('users')
     fields = ('username', 'first_name', 'last_name')
+
+
+class DeleteUserView(DeleteView):
+    model = User
+    template_name = 'user_delete.html'
+    success_url = reverse_lazy('users')

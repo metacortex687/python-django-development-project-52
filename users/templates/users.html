@@ -30,7 +30,7 @@
         <td>
           <a href="{% url "user_update" obj_user.id %}">Изменить</a>
           <br>
-          <a href="/users/1/delete/">Удалить</a>
+          <a href="{% url "user_delete" obj_user.id %}">Удалить</a>
         </td>
       </tr> 
     {% endfor %}
