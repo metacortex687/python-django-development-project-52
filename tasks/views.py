@@ -32,9 +32,11 @@ class TaskUpdate(LoginRequiredMixin,UpdateView):
     model = Task
     fields = ('name','describe','status','executor', 'labels')
     template_name = 'tasks_update.html' 
-    success_url = reverse_lazy('tasks')
- 
- 
+
+    def get_success_url(self):
+        return reverse_lazy('tasks_detail', args=[self.object.pk])
+    
+
 class TaskDetailView(LoginRequiredMixin,DetailView):
     model = Task
     fields = ('name','describe','status','executor')
