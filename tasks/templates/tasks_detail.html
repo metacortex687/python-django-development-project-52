@@ -38,18 +38,11 @@
           <h6>Метки:</h6>
           <ul>
             
-              <li>Пока нет меток 1</li>
-            
-              <li>Пока нет меток 2</li>
-            
-              <li>Пока нет меток 3</li>
-            
-              <li>Пока нет меток 4</li>
-            
-              <li>Пока нет меток 5</li>
-            
-              <li>Пока нет меток 6</li>
-            
+            {% for label in object.labels.all %}
+            <li>{{label.name}}</li>
+            {% endfor %}
+              
+           
           </ul>
         </div>
       </div>
