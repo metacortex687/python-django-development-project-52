@@ -2,7 +2,7 @@ from django.test import TestCase
 from .models import Status
 from django.contrib.auth.models import User
 
-class TestUsersCRUD(TestCase):
+class TestStatusCRUD(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.status1 = Status.objects.create(name='status1')
