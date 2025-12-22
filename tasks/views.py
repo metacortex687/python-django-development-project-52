@@ -1,4 +1,5 @@
 from .models import Task
+from labels.models import Label
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
@@ -29,11 +30,11 @@ class TaskDelete(LoginRequiredMixin,DeleteView):
 
 class TaskUpdate(LoginRequiredMixin,UpdateView):
     model = Task
-    fields = ('name','describe','status','executor')
+    fields = ('name','describe','status','executor', 'labels')
     template_name = 'tasks_update.html' 
-    success_url = reverse_lazy('tasks') 
-      
-
+    success_url = reverse_lazy('tasks')
+ 
+ 
 class TaskDetailView(LoginRequiredMixin,DetailView):
     model = Task
     fields = ('name','describe','status','executor')
