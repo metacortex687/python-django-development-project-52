@@ -112,4 +112,4 @@ class TestStatusCRUD(TestCase):
         resp = self.client.post('/statuses/1/delete/')
         self.assertRedirects(resp, '/statuses/')  
 
-        self.assertFalse(Status.objects.filter(name="rename_status").exists())
+        self.assertFalse(Status.objects.filter(name="status1").exists())
