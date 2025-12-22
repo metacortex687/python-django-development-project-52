@@ -139,3 +139,10 @@ class TestTuskCRUD(TestCase):
         self.assertRedirects(resp, '/tasks/')  
 
         self.assertFalse(Task.objects.filter(name="task1").exists())
+
+
+    def test_reverse_tasks_for_status(self):
+        self.status1.task_set.all()
+        self.assertIn(self.task1, self.status1.task_set.all())
+        self.assertNotIn(self.task2, self.status1.task_set.all())
+
