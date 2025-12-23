@@ -104,7 +104,7 @@ class TestTuskCRUD(TestCase):
         self.client.login(username=self.user2.username, password=self.password)
 
         resp = self.client.post('/tasks/1/update/',payload)
-        self.assertRedirects(resp, '/tasks/')  
+        self.assertRedirects(resp, '/tasks/1/')  
 
         task.refresh_from_db()
         self.assertEqual(task.name, 'rename_task')
