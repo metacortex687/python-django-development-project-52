@@ -5,6 +5,22 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import messages
+from django import forms
+
+class CustomUserCreationForm(UserCreationForm):
+    first_name = forms.CharField(required=False)
+    last_name = forms.CharField(required=False)
+
+    class Meta(UserCreationForm.Meta):
+        fields=('username','first_name','last_name','password1','password2')  
+
+    # def save(self, commit = ...):
+    #     user = 
+    #     return super().save(commit)
+    
+
+
+
 
 class UserLoginView(LoginView):
     template_name = 'login.html'
@@ -25,8 +41,9 @@ class UserListView(ListView):
 
 class CreateUserView(CreateView):
     template_name = 'user_create.html'
-    form_class = UserCreationForm
-    success_url = reverse_lazy('login')   
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy('login') 
+    
 
 
 class UpdateUserView(UpdateView):
