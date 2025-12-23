@@ -23,6 +23,7 @@ urlpatterns = [
     path('statuses/', include('statuses.urls')),
     path('labels/', include('labels.urls')),    
     path('tasks/', include('tasks.urls')),
+    path('test-rollbar/',views.test_rollbar),
     path('', views.HomePageView.as_view(), name='index'),    
     path('', include('users.urls')),    
 ]
