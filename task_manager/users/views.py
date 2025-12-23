@@ -8,8 +8,8 @@ from django.contrib import messages
 from django import forms
 
 class CustomUserCreationForm(UserCreationForm):
-    first_name = forms.CharField(required=False)
-    last_name = forms.CharField(required=False)
+    first_name = forms.CharField(required=False, label='Имя')
+    last_name = forms.CharField(required=False, label='Фамилия')
 
     class Meta(UserCreationForm.Meta):
         fields=('username','first_name','last_name','password1','password2')  
