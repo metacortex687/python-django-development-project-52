@@ -6,9 +6,15 @@ from django.views.generic.list import ListView
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
 
-class TaskListView(LoginRequiredMixin,ListView):
+from django_filters.views import FilterView 
+from .filters import TaskFilter 
+
+
+class TaskListView(LoginRequiredMixin, FilterView):
     model = Task
-    template_name = 'tasks.html'    
+    template_name = 'tasks.html'
+    filterset_class = TaskFilter  
+
 
 class TaskCreate(LoginRequiredMixin,CreateView):
     model = Task

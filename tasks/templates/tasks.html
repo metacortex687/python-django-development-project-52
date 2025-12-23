@@ -10,6 +10,16 @@
       </h1>
 
       <a class="btn btn-primary mb-3" href="{% url "tasks_create" %}">Создать задачу</a>
+
+
+      <div class="card mb-3">
+  <div class="card-body bg-light">
+    <form class="form-inline center" method="get">
+        {{ filter.form.as_p }}
+        <input class="btn btn-primary" type="submit" value="Показать">
+    </form>
+  </div>
+</div>
       
 <table class="table table-striped">
   <thead>
@@ -25,7 +35,7 @@
   </thead>
   <tbody>
     
-    {% for obj in object_list  %}
+    {% for obj in filter.qs  %}
         <tr>            
         <td>{{obj.id}}</td>
         <td><a href="{% url "tasks_detail" obj.id %}">{{obj.name}}</a></td>

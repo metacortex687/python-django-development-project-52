@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Status, Task
+from .models import Status, Task, Label
 from django.contrib.auth.models import User
 
 class TestTuskCRUD(TestCase):
@@ -145,4 +145,56 @@ class TestTuskCRUD(TestCase):
         self.status1.task_set.all()
         self.assertIn(self.task1, self.status1.task_set.all())
         self.assertNotIn(self.task2, self.status1.task_set.all())
+
+
+    def test_filter_task(self):
+        self.client.login(username=self.user1.username, password=self.password)
+
+        resp = self.client.get('/tasks/',{'status': '', 'executor': ''})
+
+        self.assertContains(resp, self.task1.name)
+        self.assertContains(resp, self.task2.name)
+
+        resp = self.client.get('/tasks/',{'self_tasks': 'on'})
+        self.assertContains(resp, self.task1.name)
+        self.assertNotContains(resp, self.task2.name)
+
+
+        resp = self.client.get('/tasks/',{'status': 2})
+        self.assertNotContains(resp, self.task1.name)
+        self.assertContains(resp, self.task2.name)
+
+
+    def test_filter_task_for_label(self):
+        self.client.login(username=self.user1.username, password=self.password)
+
+        label1 = Label.objects.create(name='label1')
+        self.task1.labels.add(label1)
+
+        resp = self.client.get('/tasks/',{'label': label1.id})
+
+        self.assertContains(resp, self.task1.name)
+        self.assertNotContains(resp, self.task2.name)
+
+
+        label2 = Label.objects.create(name='label2')
+        self.task1.labels.add(label2)
+        self.task2.labels.add(label2)
+
+        resp = self.client.get('/tasks/',{'label': label2.id})
+
+        self.assertContains(resp, self.task1.name)
+        self.assertContains(resp, self.task2.name)
+
+        label3 = Label.objects.create(name='label3')
+        resp = self.client.get('/tasks/',{'label': label3.id})
+        self.assertNotContains(resp, self.task1.name)
+        self.assertNotContains(resp, self.task2.name)
+
+
+
+
+
+
+
 
