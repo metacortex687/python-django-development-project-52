@@ -1,6 +1,6 @@
 import django_filters
 from .models import Task
-from labels.models import Label
+from ..labels.models import Label
 from django import forms
 
 

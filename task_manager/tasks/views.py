@@ -1,5 +1,5 @@
 from .models import Task
-from labels.models import Label
+from ..labels.models import Label
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
