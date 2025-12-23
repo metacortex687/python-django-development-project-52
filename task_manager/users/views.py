@@ -3,6 +3,20 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.list import ListView
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib import messages
+
+class UserLoginView(LoginView):
+    template_name = 'login.html'
+
+    def form_valid(self, form):
+        messages.success(self.request,'Вы залогинены')
+        return super().form_valid(form)
+
+class UserLogoutView(LogoutView):
+    def dispatch(self, request, *args, **kwargs):
+        messages.success(self.request,'Вы разлогинены')
+        return super().dispatch(request, *args, **kwargs)    
 
 class UserListView(ListView):
     model = User
