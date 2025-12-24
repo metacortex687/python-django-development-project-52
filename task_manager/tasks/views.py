@@ -1,8 +1,6 @@
 from .models import Task
-from ..labels.models import Label
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.list import ListView
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
 
