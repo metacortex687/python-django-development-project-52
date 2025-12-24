@@ -4,6 +4,8 @@ from django.views.generic.list import ListView
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.db.models.deletion import RestrictedError
+from django.shortcuts import redirect
 
 class LabelListView(LoginRequiredMixin,ListView):
     model = Label
@@ -24,9 +26,16 @@ class LabelDelete(LoginRequiredMixin,DeleteView):
     template_name = 'labels_delete.html' 
     success_url = reverse_lazy('labels') 
 
-    def form_valid(self, form):
+    def post(self, request, *args, **kwargs):
+        try:
+            response = super().post(request, *args, **kwargs)
+        except RestrictedError:
+            messages.error(request, "Невозможно удалить метку, потому что она используется")
+            return redirect(self.success_url)
+        
         messages.success(self.request,'Метка успешно удалена')
-        return super().form_valid(form)
+                
+        return response
     
 class LabelUpdate(LoginRequiredMixin,UpdateView):
     model = Label
