@@ -1,14 +1,14 @@
 from django.db import models
 from ..statuses.models import Status
 from ..labels.models import Label
-from django.contrib.auth.models import User
+from django.conf import settings
 
 class Task(models.Model):
     name = models.CharField(max_length=25, verbose_name='Имя')
     describe = models.TextField(max_length=25, verbose_name='Описание')
     status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True, verbose_name='Статус')
-    author = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='created_tasks', verbose_name='Автор')
-    executor = models.ForeignKey(User, on_delete=models.RESTRICT, related_name='assigned_tasks', verbose_name='Исполнитель')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL , on_delete=models.RESTRICT, related_name='created_tasks', verbose_name='Автор')
+    executor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.RESTRICT, related_name='assigned_tasks', verbose_name='Исполнитель')
     created_at = models.DateTimeField(auto_now_add=True)
 
     labels = models.ManyToManyField(Label, through='TaskLabel', blank=True, verbose_name='Метки')

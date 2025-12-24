@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.views.generic.list import ListView
@@ -16,7 +15,7 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         fields=('username','first_name','last_name','password1','password2')  
-
+        model = get_user_model()
 
 class CustomUserChangeFormForm(UserChangeForm):
     password = None
@@ -25,6 +24,7 @@ class CustomUserChangeFormForm(UserChangeForm):
 
     class Meta(UserChangeForm.Meta):
         fields=('username','first_name','last_name',)
+        model = get_user_model()
 
     def clean_password1(self):
         p1 = self.cleaned_data.get('password1')
@@ -61,7 +61,7 @@ class UserLogoutView(LogoutView):
         return super().dispatch(request, *args, **kwargs)    
 
 class UserListView(ListView):
-    model = User
+    model = get_user_model()
     template_name = 'users.html'    
 
 
@@ -97,7 +97,7 @@ class UpdateUserView(LoginRequiredMixin, UpdateView):
     
 
 class DeleteUserView(LoginRequiredMixin, DeleteView):
-    model = User
+    model = get_user_model()
     template_name = 'user_delete.html'
     success_url = reverse_lazy('users')
 
