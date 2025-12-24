@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load django_bootstrap5 %}
 
 {% block content %}
 <div class="container wrapper flex-grow-1">    
@@ -15,7 +16,7 @@
       <div class="card mb-3">
   <div class="card-body bg-light">
     <form class="form-inline center" method="get">
-        {{ filter.form.as_p }}
+        {% bootstrap_form filter.form %}
         <input class="btn btn-primary" type="submit" value="Показать">
     </form>
   </div>
