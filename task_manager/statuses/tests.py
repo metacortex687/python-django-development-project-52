@@ -64,7 +64,7 @@ class TestStatusCRUD(TestCase):
         self.client.login(username=self.user.username, password=self.password)
 
         resp = self.client.get('/statuses/1/update/')
-        self.assertEqual(resp.status_code,200)    
+        self.assertEqual(resp.status_code,200)
 
 
     def test_status_update_post(self):
@@ -82,7 +82,7 @@ class TestStatusCRUD(TestCase):
         self.client.login(username=self.user.username, password=self.password)
 
         resp = self.client.post('/statuses/1/update/',payload)
-        self.assertRedirects(resp, '/statuses/')  
+        self.assertRedirects(resp, '/statuses/')
 
         self.assertTrue(Status.objects.filter(name="rename_status").exists())
 
@@ -98,7 +98,7 @@ class TestStatusCRUD(TestCase):
         self.client.login(username=self.user.username, password=self.password)
 
         resp = self.client.get('/statuses/1/delete/')
-        self.assertEqual(resp.status_code,200)    
+        self.assertEqual(resp.status_code,200)
 
 
     def test_status_delete_post(self):
@@ -112,6 +112,6 @@ class TestStatusCRUD(TestCase):
         self.client.login(username=self.user.username, password=self.password)
 
         resp = self.client.post('/statuses/1/delete/')
-        self.assertRedirects(resp, '/statuses/')  
+        self.assertRedirects(resp, '/statuses/')
 
         self.assertFalse(Status.objects.filter(name="status1").exists())

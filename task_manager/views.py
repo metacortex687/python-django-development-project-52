@@ -6,6 +6,6 @@ class HomePageView(TemplateView):
 
 def test_rollbar(request):
     a = None
-    a.test_rollbar() 
-    return HttpResponse("test_error_in_rollbar") 
+    a.test_rollbar()
+    return HttpResponse("test_error_in_rollbar")
 

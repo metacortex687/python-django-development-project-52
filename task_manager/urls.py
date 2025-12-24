@@ -21,9 +21,9 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('statuses/', include('task_manager.statuses.urls')),
-    path('labels/', include('task_manager.labels.urls')),    
+    path('labels/', include('task_manager.labels.urls')),
     path('tasks/', include('task_manager.tasks.urls')),
     path('test-rollbar/',views.test_rollbar),
-    path('', views.HomePageView.as_view(), name='index'),    
-    path('', include('task_manager.users.urls')),    
+    path('', views.HomePageView.as_view(), name='index'),
+    path('', include('task_manager.users.urls')),
 ]

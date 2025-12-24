@@ -7,6 +7,6 @@ urlpatterns = [
     path('logout/',views.UserLogoutView.as_view(), name='logout'),
     path('users/create/',views.CreateUserView.as_view(), name='user_create'),
     path('users/<int:pk>/update/',views.UpdateUserView.as_view(), name='user_update'),
-    path('users/<int:pk>/delete/',views.DeleteUserView.as_view(), name='user_delete'),   
-    
+    path('users/<int:pk>/delete/',views.DeleteUserView.as_view(), name='user_delete'),
+
 ]

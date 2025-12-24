@@ -62,7 +62,7 @@ class TestUsersCRUD(TestCase):
         resp = self.client.get('/users/1/delete/')
         self.assertEqual(resp.status_code,200)
 
-    def test_user_delete_post(self):        
+    def test_user_delete_post(self):
         self.assertTrue(User.objects.filter(pk=1).exists())
         resp = self.client.post('/users/1/delete/')
         self.assertRedirects(resp, '/users/')
@@ -80,7 +80,7 @@ class TestUsersCRUD(TestCase):
         resp = self.client.post('/login/', payload)
         self.assertRedirects(resp, '/')
 
-        resp2 = self.client.get('/') 
+        resp2 = self.client.get('/')
         self.assertTrue(resp2.wsgi_request.user.is_authenticated)
 
     def test_logout_post(self):
@@ -91,11 +91,11 @@ class TestUsersCRUD(TestCase):
         resp = self.client.post('/login/', payload)
         self.assertRedirects(resp, '/')
 
-        resp2 = self.client.get('/') 
+        resp2 = self.client.get('/')
         self.assertTrue(resp2.wsgi_request.user.is_authenticated)
 
         resp = self.client.post('/logout/', payload)
         self.assertRedirects(resp, '/')
 
-        resp2 = self.client.get('/') 
+        resp2 = self.client.get('/')
         self.assertFalse(resp2.wsgi_request.user.is_authenticated)

@@ -14,11 +14,11 @@ class TaskFilter(django_filters.FilterSet):
     def filter_self_tasks(self, queryset, name, value):
         if not value:
             return queryset
-        
+
         return queryset.filter(author=self.request.user)
-    
+
     def filter_label(self, queryset, name, value):
         if not value:
             return queryset
-        
+
         return queryset.filter(labels=value)

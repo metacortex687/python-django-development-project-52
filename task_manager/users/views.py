@@ -14,13 +14,13 @@ class CustomUserCreationForm(UserCreationForm):
     last_name = forms.CharField(required=False, label='Фамилия')
 
     class Meta(UserCreationForm.Meta):
-        fields=('username','first_name','last_name','password1','password2')  
+        fields=('username','first_name','last_name','password1','password2')
         model = get_user_model()
 
 class CustomUserChangeFormForm(UserChangeForm):
     password = None
     password1 = forms.CharField(widget=forms.PasswordInput(), label='Пароль', help_text='<ul><li>Ваш пароль должен содержать как минимум 3 символа.</li></ul>')
-    password2 = forms.CharField(widget=forms.PasswordInput(), label='Подтверждение пароля', help_text='Для подтверждения введите, пожалуйста, пароль ещё раз.')   
+    password2 = forms.CharField(widget=forms.PasswordInput(), label='Подтверждение пароля', help_text='Для подтверждения введите, пожалуйста, пароль ещё раз.')
 
     class Meta(UserChangeForm.Meta):
         fields=('username','first_name','last_name',)
@@ -31,22 +31,22 @@ class CustomUserChangeFormForm(UserChangeForm):
         if len(p1) < 3:
             raise forms.ValidationError('Ваш пароль должен содержать как минимум 3 символа.')
         return p1
-    
+
     def clean(self):
         cleaned = super().clean()
 
         if cleaned.get('password1') != cleaned.get('password2'):
-            self.add_error('password2','Пароли не совпадают') 
+            self.add_error('password2','Пароли не совпадают')
 
-        return cleaned  
-    
+        return cleaned
+
     def save(self, commit = ...):
         self.instance.set_password(self.cleaned_data['password1'])
         return super().save(commit)
-    
 
-    
-    
+
+
+
 
 class UserLoginView(LoginView):
     template_name = 'login.html'
@@ -58,18 +58,18 @@ class UserLoginView(LoginView):
 class UserLogoutView(LogoutView):
     def dispatch(self, request, *args, **kwargs):
         messages.success(self.request,'Вы разлогинены')
-        return super().dispatch(request, *args, **kwargs)    
+        return super().dispatch(request, *args, **kwargs)
 
 class UserListView(ListView):
     model = get_user_model()
-    template_name = 'users.html'    
+    template_name = 'users.html'
 
 
 class CreateUserView(CreateView):
     template_name = 'user_create.html'
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy('login') 
-    
+    success_url = reverse_lazy('login')
+
     def form_valid(self, form):
         messages.success(self.request,'Пользователь успешно зарегистрирован')
         return super().form_valid(form)
@@ -90,11 +90,11 @@ class UpdateUserView(LoginRequiredMixin, UpdateView):
             messages.error(request, 'У вас нет прав для изменения другого пользователя.')
             return redirect('users')
         return super().dispatch(request, *args, **kwargs)
-    
+
     def form_valid(self, form):
         messages.success(self.request, 'Пользователь успешно изменен')
         return super().form_valid(form)
-    
+
 
 class DeleteUserView(LoginRequiredMixin, DeleteView):
     model = get_user_model()
@@ -106,12 +106,12 @@ class DeleteUserView(LoginRequiredMixin, DeleteView):
             messages.error(request, 'У вас нет прав для изменения другого пользователя.')
             return redirect('users')
         return super().dispatch(request, *args, **kwargs)
-    
+
     def form_valid(self, form):
 
         messages.success(self.request,'Пользователь успешно удален')
         return super().form_valid(form)
-  
+
     def handle_no_permission(self):
         messages.error(self.request, 'Вы не авторизованы! Пожалуйста, выполните вход.')
         return super().handle_no_permission()

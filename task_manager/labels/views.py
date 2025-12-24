@@ -9,22 +9,22 @@ from django.shortcuts import redirect
 
 class LabelListView(LoginRequiredMixin,ListView):
     model = Label
-    template_name = 'labels.html'    
+    template_name = 'labels.html'
 
 class LabelCreate(LoginRequiredMixin,CreateView):
     model = Label
-    template_name = 'labels_create.html' 
+    template_name = 'labels_create.html'
     fields = ('name',)
-    success_url = reverse_lazy('labels')   
+    success_url = reverse_lazy('labels')
 
     def form_valid(self, form):
         messages.success(self.request,'Метка успешно создана')
         return super().form_valid(form)
-    
+
 class LabelDelete(LoginRequiredMixin,DeleteView):
     model = Label
-    template_name = 'labels_delete.html' 
-    success_url = reverse_lazy('labels') 
+    template_name = 'labels_delete.html'
+    success_url = reverse_lazy('labels')
 
     def post(self, request, *args, **kwargs):
         try:
@@ -32,18 +32,17 @@ class LabelDelete(LoginRequiredMixin,DeleteView):
         except RestrictedError:
             messages.error(request, "Невозможно удалить метку, потому что она используется")
             return redirect(self.success_url)
-        
+
         messages.success(self.request,'Метка успешно удалена')
-                
+
         return response
-    
+
 class LabelUpdate(LoginRequiredMixin,UpdateView):
     model = Label
     fields = ('name',)
-    template_name = 'labels_update.html' 
-    success_url = reverse_lazy('labels')       
-    
+    template_name = 'labels_update.html'
+    success_url = reverse_lazy('labels')
+
     def form_valid(self, form):
         messages.success(self.request,'Метка успешно изменена')
         return super().form_valid(form)
-    

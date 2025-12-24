@@ -64,7 +64,7 @@ class TestLabelCRUD(TestCase):
         self.client.login(username=self.user.username, password=self.password)
 
         resp = self.client.get('/labels/1/update/')
-        self.assertEqual(resp.status_code,200)    
+        self.assertEqual(resp.status_code,200)
 
 
     def test_label_update_post(self):
@@ -82,7 +82,7 @@ class TestLabelCRUD(TestCase):
         self.client.login(username=self.user.username, password=self.password)
 
         resp = self.client.post('/labels/1/update/',payload)
-        self.assertRedirects(resp, '/labels/')  
+        self.assertRedirects(resp, '/labels/')
 
         self.assertTrue(Label.objects.filter(name="rename_label").exists())
 
@@ -98,7 +98,7 @@ class TestLabelCRUD(TestCase):
         self.client.login(username=self.user.username, password=self.password)
 
         resp = self.client.get('/labels/1/delete/')
-        self.assertEqual(resp.status_code,200)    
+        self.assertEqual(resp.status_code,200)
 
 
     def test_label_delete_post(self):
@@ -112,6 +112,6 @@ class TestLabelCRUD(TestCase):
         self.client.login(username=self.user.username, password=self.password)
 
         resp = self.client.post('/labels/1/delete/')
-        self.assertRedirects(resp, '/labels/')  
+        self.assertRedirects(resp, '/labels/')
 
         self.assertFalse(Label.objects.filter(name="label1").exists())

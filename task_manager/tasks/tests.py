@@ -15,7 +15,7 @@ class TestTuskCRUD(TestCase):
         cls.user2 = User.objects.create_user(username="user2", password=cls.password)
 
         cls.task1 = Task.objects.create(name='task1',describe='describe1',status=cls.status1,author=cls.user1,executor=cls.user2)
-        cls.task2  = Task.objects.create(name='task2',describe='describe2',status=cls.status2,author=cls.user2,executor=cls.user1)    
+        cls.task2  = Task.objects.create(name='task2',describe='describe2',status=cls.status2,author=cls.user2,executor=cls.user1)
 
 
 
@@ -78,7 +78,7 @@ class TestTuskCRUD(TestCase):
         self.client.login(username=self.user1.username, password=self.password)
 
         resp = self.client.get('/tasks/1/update/')
-        self.assertEqual(resp.status_code,200)    
+        self.assertEqual(resp.status_code,200)
 
 
     def test_task_update_post(self):
@@ -100,20 +100,20 @@ class TestTuskCRUD(TestCase):
         self.assertEqual(task.describe, 'describe1')
         self.assertEqual(task.status, self.status1)
         self.assertEqual(task.executor, self.user2)
-        self.assertEqual(task.author, self.user1)       
+        self.assertEqual(task.author, self.user1)
 
 
         self.client.login(username=self.user2.username, password=self.password)
 
         resp = self.client.post('/tasks/1/update/',payload)
-        self.assertRedirects(resp, '/tasks/1/')  
+        self.assertRedirects(resp, '/tasks/1/')
 
         task.refresh_from_db()
         self.assertEqual(task.name, 'rename_task')
         self.assertEqual(task.describe, 'rename_describe')
         self.assertEqual(task.status, self.status2)
         self.assertEqual(task.executor, self.user1)
-        self.assertEqual(task.author, self.user1)  #на сайте образце после обновления автор не меняется     
+        self.assertEqual(task.author, self.user1)  #на сайте образце после обновления автор не меняется
 
 
     def test_task_delete_get(self):
@@ -124,7 +124,7 @@ class TestTuskCRUD(TestCase):
         self.client.login(username=self.user1.username, password=self.password)
 
         resp = self.client.get('/tasks/1/delete/')
-        self.assertEqual(resp.status_code,200)    
+        self.assertEqual(resp.status_code,200)
 
 
     def test_task_delete_post(self):
@@ -138,7 +138,7 @@ class TestTuskCRUD(TestCase):
         self.client.login(username=self.user1.username, password=self.password)
 
         resp = self.client.post('/tasks/1/delete/')
-        self.assertRedirects(resp, '/tasks/')  
+        self.assertRedirects(resp, '/tasks/')
 
         self.assertFalse(Task.objects.filter(name="task1").exists())
 
