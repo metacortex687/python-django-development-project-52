@@ -8,6 +8,8 @@ from django.urls import reverse_lazy
 
 from django_filters.views import FilterView 
 from .filters import TaskFilter 
+from django.contrib import messages
+from django.shortcuts import redirect
 
 
 class TaskListView(LoginRequiredMixin, FilterView):
@@ -24,7 +26,9 @@ class TaskCreate(LoginRequiredMixin,CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        
+
+        messages.success(self.request,'Задача успешно создана')
+
         return super().form_valid(form)
        
 
@@ -32,6 +36,19 @@ class TaskDelete(LoginRequiredMixin,DeleteView):
     model = Task
     template_name = 'tasks_delete.html' 
     success_url = reverse_lazy('tasks') 
+
+    def dispatch(self, request, *args, **kwargs):
+        if self.get_object().author != self.request.user:
+            messages.error(self.request,'Задачу может удалить только ее автор')
+            return redirect('tasks')
+
+        return super().dispatch(request, *args, **kwargs)
+    
+    def form_valid(self, form):
+
+        messages.success(self.request,'Задача успешно удалена')
+
+        return super().form_valid(form)   
 
 
 class TaskUpdate(LoginRequiredMixin,UpdateView):
@@ -42,6 +59,10 @@ class TaskUpdate(LoginRequiredMixin,UpdateView):
     def get_success_url(self):
         return reverse_lazy('tasks_detail', args=[self.object.pk])
     
+    def form_valid(self, form):
+        messages.success(self.request,'Задача успешно изменена')
+        return super().form_valid(form)  
+     
 
 class TaskDetailView(LoginRequiredMixin,DetailView):
     model = Task

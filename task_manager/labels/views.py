@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 class LabelListView(LoginRequiredMixin,ListView):
     model = Label
@@ -14,13 +15,26 @@ class LabelCreate(LoginRequiredMixin,CreateView):
     fields = ('name',)
     success_url = reverse_lazy('labels')   
 
+    def form_valid(self, form):
+        messages.success(self.request,'Метка успешно создана')
+        return super().form_valid(form)
+    
 class LabelDelete(LoginRequiredMixin,DeleteView):
     model = Label
     template_name = 'labels_delete.html' 
     success_url = reverse_lazy('labels') 
 
+    def form_valid(self, form):
+        messages.success(self.request,'Метка успешно удалена')
+        return super().form_valid(form)
+    
 class LabelUpdate(LoginRequiredMixin,UpdateView):
     model = Label
     fields = ('name',)
     template_name = 'labels_update.html' 
-    success_url = reverse_lazy('labels')   
+    success_url = reverse_lazy('labels')       
+    
+    def form_valid(self, form):
+        messages.success(self.request,'Метка успешно изменена')
+        return super().form_valid(form)
+    
