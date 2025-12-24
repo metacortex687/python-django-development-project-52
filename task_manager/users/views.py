@@ -24,7 +24,10 @@ class CustomUserChangeFormForm(UserChangeForm):
     password1 = forms.CharField(
         widget=forms.PasswordInput(),
         label="Пароль",
-        help_text="<ul><li>Ваш пароль должен содержать как минимум 3 символа.</li></ul>",
+        help_text=(
+            "<ul>"
+            "<li>Ваш пароль должен содержать как минимум 3 символа.</li>"
+            "</ul>"),
     )
     password2 = forms.CharField(
         widget=forms.PasswordInput(),
