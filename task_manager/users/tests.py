@@ -10,10 +10,16 @@ class TestUsersCRUD(TestCase):
         cls.password = "12345"
 
         cls.user1 = User.objects.create_user(
-            username="user1", password=cls.password, first_name="F_U1", last_name="L_U1"
+            username="user1",
+            password=cls.password,
+            first_name="F_U1",
+            last_name="L_U1",
         )
         cls.user2 = User.objects.create_user(
-            username="user2", password=cls.password, first_name="F_U2", last_name="L_U2"
+            username="user2",
+            password=cls.password,
+            first_name="F_U2",
+            last_name="L_U2",
         )
 
     def test_user_list(self):

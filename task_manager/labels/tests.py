@@ -12,7 +12,9 @@ class TestLabelCRUD(TestCase):
         cls.label2 = Label.objects.create(name="label2")
 
         cls.password = "StrongPass_123"
-        cls.user = User.objects.create_user(username="user1", password=cls.password)
+        cls.user = User.objects.create_user(
+            username="user1", password=cls.password
+        )
 
     def test_label_list(self):
         resp = self.client.get("/labels/")

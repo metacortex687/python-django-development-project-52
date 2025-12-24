@@ -26,13 +26,15 @@ class Migration(migrations.Migration):
                 (
                     "label",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.RESTRICT, to="labels.label"
+                        on_delete=django.db.models.deletion.RESTRICT,
+                        to="labels.label",
                     ),
                 ),
                 (
                     "task",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="tasks.task"
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="tasks.task",
                     ),
                 ),
             ],

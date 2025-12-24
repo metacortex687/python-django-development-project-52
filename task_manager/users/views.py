@@ -15,7 +15,13 @@ class CustomUserCreationForm(UserCreationForm):
     last_name = forms.CharField(required=False, label="Фамилия")
 
     class Meta(UserCreationForm.Meta):
-        fields = ("username", "first_name", "last_name", "password1", "password2")
+        fields = (
+            "username",
+            "first_name",
+            "last_name",
+            "password1",
+            "password2",
+        )
         model = get_user_model()
 
 
@@ -27,7 +33,8 @@ class CustomUserChangeFormForm(UserChangeForm):
         help_text=(
             "<ul>"
             "<li>Ваш пароль должен содержать как минимум 3 символа.</li>"
-            "</ul>"),
+            "</ul>"
+        ),
     )
     password2 = forms.CharField(
         widget=forms.PasswordInput(),
@@ -100,7 +107,9 @@ class UpdateUserView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("users")
 
     def handle_no_permission(self):
-        messages.error(self.request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+        messages.error(
+            self.request, "Вы не авторизованы! Пожалуйста, выполните вход."
+        )
         return super().handle_no_permission()
 
     def dispatch(self, request, *args, **kwargs):
@@ -134,5 +143,7 @@ class DeleteUserView(LoginRequiredMixin, DeleteView):
         return super().form_valid(form)
 
     def handle_no_permission(self):
-        messages.error(self.request, "Вы не авторизованы! Пожалуйста, выполните вход.")
+        messages.error(
+            self.request, "Вы не авторизованы! Пожалуйста, выполните вход."
+        )
         return super().handle_no_permission()

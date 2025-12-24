@@ -98,7 +98,9 @@ DATABASES = {
 }
 
 db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES["default"].update(db_from_env)  # update from DATABASE_URL in .env if defined
+DATABASES["default"].update(
+    db_from_env
+)  # update from DATABASE_URL in .env if defined
 
 
 # Password validation
@@ -110,13 +112,16 @@ AUTH_PASSWORD_VALIDATORS = [
         "UserAttributeSimilarityValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "NAME": "django.contrib.auth.password_validation."
+        "MinimumLengthValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+        "NAME": "django.contrib.auth.password_validation."
+        "CommonPasswordValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+        "NAME": "django.contrib.auth.password_validation."
+        "NumericPasswordValidator",
     },
 ]
 

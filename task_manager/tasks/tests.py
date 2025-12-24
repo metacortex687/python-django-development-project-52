@@ -12,8 +12,12 @@ class TestTuskCRUD(TestCase):
         cls.status2 = Status.objects.create(name="status2")
 
         cls.password = "StrongPass_123"
-        cls.user1 = User.objects.create_user(username="user1", password=cls.password)
-        cls.user2 = User.objects.create_user(username="user2", password=cls.password)
+        cls.user1 = User.objects.create_user(
+            username="user1", password=cls.password
+        )
+        cls.user2 = User.objects.create_user(
+            username="user2", password=cls.password
+        )
 
         cls.task1 = Task.objects.create(
             name="task1",

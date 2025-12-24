@@ -12,7 +12,9 @@ class TestStatusCRUD(TestCase):
         cls.status2 = Status.objects.create(name="status2")
 
         cls.password = "StrongPass_123"
-        cls.user = User.objects.create_user(username="user1", password=cls.password)
+        cls.user = User.objects.create_user(
+            username="user1", password=cls.password
+        )
 
     def test_status_list(self):
         resp = self.client.get("/statuses/")
