@@ -44,9 +44,7 @@ class CustomUserChangeFormForm(UserChangeForm):
         self.instance.set_password(self.cleaned_data['password1'])
         return super().save(commit)
     
-    def form_valid(self, form):
-        messages.success(self.request, 'Пользователь успешно изменен')
-        return super().form_valid(form)
+
     
     
 
@@ -93,6 +91,10 @@ class UpdateUserView(LoginRequiredMixin, UpdateView):
             return redirect('users')
         return super().dispatch(request, *args, **kwargs)
     
+    def form_valid(self, form):
+        messages.success(self.request, 'Пользователь успешно изменен')
+        return super().form_valid(form)
+    
 
 class DeleteUserView(LoginRequiredMixin, DeleteView):
     model = User
@@ -104,6 +106,10 @@ class DeleteUserView(LoginRequiredMixin, DeleteView):
             messages.error(request, 'У вас нет прав для изменения другого пользователя.')
             return redirect('users')
         return super().dispatch(request, *args, **kwargs)
+    
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request,'Пользователь успешно удален')
+        return super().delete(request, *args, **kwargs)
 
     def handle_no_permission(self):
         messages.error(self.request, 'Вы не авторизованы! Пожалуйста, выполните вход.')
