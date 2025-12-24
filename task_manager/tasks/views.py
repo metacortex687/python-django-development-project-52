@@ -21,7 +21,7 @@ class TaskListView(LoginRequiredMixin, FilterView):
 class TaskCreate(LoginRequiredMixin,CreateView):
     model = Task
     template_name = 'tasks_create.html' 
-    fields = ('name','describe','status','executor', 'labels')
+    fields = ('name','description','status','executor', 'labels')
     success_url = reverse_lazy('tasks')
 
     def form_valid(self, form):
@@ -53,7 +53,7 @@ class TaskDelete(LoginRequiredMixin,DeleteView):
 
 class TaskUpdate(LoginRequiredMixin,UpdateView):
     model = Task
-    fields = ('name','describe','status','executor', 'labels')
+    fields = ('name','description','status','executor', 'labels')
     template_name = 'tasks_update.html' 
 
     def get_success_url(self):
@@ -66,7 +66,7 @@ class TaskUpdate(LoginRequiredMixin,UpdateView):
 
 class TaskDetailView(LoginRequiredMixin,DetailView):
     model = Task
-    fields = ('name','describe','status','executor')
+    fields = ('name','description','status','executor')
     template_name = 'tasks_detail.html' 
     success_url = reverse_lazy('tasks')   
 

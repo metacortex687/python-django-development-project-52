@@ -5,7 +5,7 @@ from django.conf import settings
 
 class Task(models.Model):
     name = models.CharField(max_length=25, verbose_name='Имя')
-    describe = models.TextField(max_length=25, verbose_name='Описание')
+    description = models.TextField(max_length=25, verbose_name='Описание')
     status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True, verbose_name='Статус')
     author = models.ForeignKey(settings.AUTH_USER_MODEL , on_delete=models.RESTRICT, related_name='created_tasks', verbose_name='Автор')
     executor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.RESTRICT, related_name='assigned_tasks', verbose_name='Исполнитель')
