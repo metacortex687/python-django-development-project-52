@@ -44,6 +44,11 @@ class CustomUserChangeFormForm(UserChangeForm):
         self.instance.set_password(self.cleaned_data['password1'])
         return super().save(commit)
     
+    def form_valid(self, form):
+        messages.success(self.request, 'Пользователь успешно изменен')
+        return super().form_valid(form)
+    
+    
 
 class UserLoginView(LoginView):
     template_name = 'login.html'
