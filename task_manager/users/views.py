@@ -107,10 +107,11 @@ class DeleteUserView(LoginRequiredMixin, DeleteView):
             return redirect('users')
         return super().dispatch(request, *args, **kwargs)
     
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request,'Пользователь успешно удален')
-        return super().delete(request, *args, **kwargs)
+    def form_valid(self, form):
 
+        messages.success(self.request,'Пользователь успешно удален')
+        return super().form_valid(form)
+  
     def handle_no_permission(self):
         messages.error(self.request, 'Вы не авторизованы! Пожалуйста, выполните вход.')
         return super().handle_no_permission()
