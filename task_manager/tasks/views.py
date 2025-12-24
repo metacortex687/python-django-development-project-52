@@ -55,9 +55,7 @@ class TaskUpdate(LoginRequiredMixin,UpdateView):
     model = Task
     fields = ('name','description','status','executor', 'labels')
     template_name = 'tasks_update.html' 
-
-    def get_success_url(self):
-        return reverse_lazy('tasks_detail', args=[self.object.pk])
+    success_url = reverse_lazy('tasks') 
     
     def form_valid(self, form):
         messages.success(self.request,'Задача успешно изменена')
