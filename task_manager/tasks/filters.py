@@ -5,11 +5,18 @@ from django import forms
 
 
 class TaskFilter(django_filters.FilterSet):
-    self_tasks = django_filters.BooleanFilter(label='Только свои задачи', widget = forms.CheckboxInput(), method='filter_self_tasks')
-    label = django_filters.ModelChoiceFilter(label='Метка', queryset=Label.objects.all(), method='filter_label')
+    self_tasks = django_filters.BooleanFilter(
+        label="Только свои задачи",
+        widget=forms.CheckboxInput(),
+        method="filter_self_tasks",
+    )
+    label = django_filters.ModelChoiceFilter(
+        label="Метка", queryset=Label.objects.all(), method="filter_label"
+    )
+
     class Meta:
         model = Task
-        fields = ['status','executor','label','self_tasks']
+        fields = ["status", "executor", "label", "self_tasks"]
 
     def filter_self_tasks(self, queryset, name, value):
         if not value:

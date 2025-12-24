@@ -6,43 +6,62 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('labels', '0002_alter_label_name'),
-        ('statuses', '0002_alter_status_name'),
-        ('tasks', '0002_tasklabel_task_labels'),
+        ("labels", "0002_alter_label_name"),
+        ("statuses", "0002_alter_status_name"),
+        ("tasks", "0002_tasklabel_task_labels"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='task',
-            name='author',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.RESTRICT, related_name='created_tasks', to=settings.AUTH_USER_MODEL, verbose_name='Автор'),
+            model_name="task",
+            name="author",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.RESTRICT,
+                related_name="created_tasks",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Автор",
+            ),
         ),
         migrations.AlterField(
-            model_name='task',
-            name='describe',
-            field=models.TextField(max_length=25, verbose_name='Описание'),
+            model_name="task",
+            name="describe",
+            field=models.TextField(max_length=25, verbose_name="Описание"),
         ),
         migrations.AlterField(
-            model_name='task',
-            name='executor',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.RESTRICT, related_name='assigned_tasks', to=settings.AUTH_USER_MODEL, verbose_name='Исполнитель'),
+            model_name="task",
+            name="executor",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.RESTRICT,
+                related_name="assigned_tasks",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Исполнитель",
+            ),
         ),
         migrations.AlterField(
-            model_name='task',
-            name='labels',
-            field=models.ManyToManyField(blank=True, through='tasks.TaskLabel', to='labels.label', verbose_name='Метки'),
+            model_name="task",
+            name="labels",
+            field=models.ManyToManyField(
+                blank=True,
+                through="tasks.TaskLabel",
+                to="labels.label",
+                verbose_name="Метки",
+            ),
         ),
         migrations.AlterField(
-            model_name='task',
-            name='name',
-            field=models.CharField(max_length=25, verbose_name='Имя'),
+            model_name="task",
+            name="name",
+            field=models.CharField(max_length=25, verbose_name="Имя"),
         ),
         migrations.AlterField(
-            model_name='task',
-            name='status',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='statuses.status', verbose_name='Статус'),
+            model_name="task",
+            name="status",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="statuses.status",
+                verbose_name="Статус",
+            ),
         ),
     ]

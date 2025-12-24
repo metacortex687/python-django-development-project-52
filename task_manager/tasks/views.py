@@ -12,57 +12,55 @@ from django.shortcuts import redirect
 
 class TaskListView(LoginRequiredMixin, FilterView):
     model = Task
-    template_name = 'tasks.html'
+    template_name = "tasks.html"
     filterset_class = TaskFilter
 
 
-class TaskCreate(LoginRequiredMixin,CreateView):
+class TaskCreate(LoginRequiredMixin, CreateView):
     model = Task
-    template_name = 'tasks_create.html'
-    fields = ('name','description','status','executor', 'labels')
-    success_url = reverse_lazy('tasks')
+    template_name = "tasks_create.html"
+    fields = ("name", "description", "status", "executor", "labels")
+    success_url = reverse_lazy("tasks")
 
     def form_valid(self, form):
         form.instance.author = self.request.user
 
-        messages.success(self.request,'Задача успешно создана')
+        messages.success(self.request, "Задача успешно создана")
 
         return super().form_valid(form)
 
 
-class TaskDelete(LoginRequiredMixin,DeleteView):
+class TaskDelete(LoginRequiredMixin, DeleteView):
     model = Task
-    template_name = 'tasks_delete.html'
-    success_url = reverse_lazy('tasks')
+    template_name = "tasks_delete.html"
+    success_url = reverse_lazy("tasks")
 
     def dispatch(self, request, *args, **kwargs):
         if self.get_object().author != self.request.user:
-            messages.error(self.request,'Задачу может удалить только ее автор')
-            return redirect('tasks')
+            messages.error(self.request, "Задачу может удалить только ее автор")
+            return redirect("tasks")
 
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-
-        messages.success(self.request,'Задача успешно удалена')
+        messages.success(self.request, "Задача успешно удалена")
 
         return super().form_valid(form)
 
 
-class TaskUpdate(LoginRequiredMixin,UpdateView):
+class TaskUpdate(LoginRequiredMixin, UpdateView):
     model = Task
-    fields = ('name','description','status','executor', 'labels')
-    template_name = 'tasks_update.html'
-    success_url = reverse_lazy('tasks')
+    fields = ("name", "description", "status", "executor", "labels")
+    template_name = "tasks_update.html"
+    success_url = reverse_lazy("tasks")
 
     def form_valid(self, form):
-        messages.success(self.request,'Задача успешно изменена')
+        messages.success(self.request, "Задача успешно изменена")
         return super().form_valid(form)
 
 
-class TaskDetailView(LoginRequiredMixin,DetailView):
+class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task
-    fields = ('name','description','status','executor')
-    template_name = 'tasks_detail.html'
-    success_url = reverse_lazy('tasks')
-
+    fields = ("name", "description", "status", "executor")
+    template_name = "tasks_detail.html"
+    success_url = reverse_lazy("tasks")
