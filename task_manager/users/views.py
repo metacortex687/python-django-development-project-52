@@ -8,6 +8,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import messages
 from django import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 
 class CustomUserCreationForm(UserCreationForm):
     first_name = forms.CharField(required=False, label='Имя')
@@ -81,11 +82,23 @@ class UpdateUserView(LoginRequiredMixin, UpdateView):
         messages.error(self.request, 'Вы не авторизованы! Пожалуйста, выполните вход.')
         return super().handle_no_permission()
 
+    def dispatch(self, request, *args, **kwargs):
+        if self.get_object() != request.user:
+            messages.error(request, 'У вас нет прав для изменения другого пользователя.')
+            return redirect('users')
+        return super().dispatch(request, *args, **kwargs)
+    
 
 class DeleteUserView(LoginRequiredMixin, DeleteView):
     model = User
     template_name = 'user_delete.html'
     success_url = reverse_lazy('users')
+
+    def dispatch(self, request, *args, **kwargs):
+        if self.get_object() != request.user:
+            messages.error(request, 'У вас нет прав для изменения другого пользователя.')
+            return redirect('users')
+        return super().dispatch(request, *args, **kwargs)
 
     def handle_no_permission(self):
         messages.error(self.request, 'Вы не авторизованы! Пожалуйста, выполните вход.')
